@@ -1,0 +1,18 @@
+# NOTE: torch is already installed in your env (2.7.0+cu128) — do NOT reinstall it here.
+# Install everything else with:  pip install -r requirements.txt
+
+transformers>=4.45.0
+peft>=0.13.0
+trl>=0.11.0
+datasets>=3.0.0
+accelerate>=1.0.0
+bitsandbytes>=0.44.0          # 4-bit QLoRA backend (ships a Windows wheel)
+wandb>=0.18.0                 # experiment tracking
+sqlparse>=0.5.0               # SQL normalisation for eval
+fastapi>=0.111.0              # serving
+uvicorn[standard]>=0.30.0
+huggingface_hub>=0.25.0
+gdown>=5.2.0                  # fetch the official Spider DB archive from Google Drive
+python-dotenv>=1.0.0
+pyyaml>=6.0
+tqdm>=4.66.0

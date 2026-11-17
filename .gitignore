@@ -1,0 +1,40 @@
+# Secrets
+.env
+_netrc
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+build/
+dist/
+
+# Large artifacts — never commit (comments MUST be on their own line in .gitignore)
+# base model weights (~3GB) — pulled from HF Hub
+models/
+# trained adapter + training checkpoints — published to a HF model repo instead
+outputs/
+# assembled at deploy time for the HF Space
+demo_dbs/
+# datasets — rebuilt by the download/prepare scripts
+data/
+wandb/
+*.safetensors
+*.gguf
+*.bin
+*.pt
+*.pth
+
+# Notebooks
+.ipynb_checkpoints/
+Untitled.ipynb
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+.claude/
+*.log

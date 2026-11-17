@@ -1,0 +1,40 @@
+# QLoRA fine-tuning config — tuned for a single RTX 3070 (8GB VRAM)
+
+model:
+  # Local copy of Qwen/Qwen2.5-Coder-1.5B-Instruct (downloaded manually — HF Xet CDN
+  # was unreachable). Swap back to the repo id "Qwen/Qwen2.5-Coder-1.5B-Instruct"
+  # for the public GitHub version once the CDN is reachable.
+  base_model: models/qwen2.5-coder-1.5b
+  load_in_4bit: true
+  bnb_4bit_quant_type: nf4
+  bnb_4bit_compute_dtype: bfloat16
+  bnb_4bit_use_double_quant: true
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+training:
+  output_dir: outputs/qwen2.5-coder-1.5b-sql
+  num_train_epochs: 3
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 16      # effective batch size = 16
+  learning_rate: 2.0e-4
+  lr_scheduler_type: cosine
+  warmup_ratio: 0.03
+  max_seq_length: 1280                 # covers p95 of train; dev set max is 957 (always fits).
+                                       # the ~3% of train examples above this are DROPPED, not
+                                       # truncated (truncation would cut the gold SQL label).
+  gradient_checkpointing: true         # trades compute for VRAM — needed on 8GB
+  bf16: true
+  optim: paged_adamw_8bit
+  logging_steps: 10
+  save_strategy: epoch
+  report_to: wandb
+  seed: 42
+
+data:
+  dataset: xlangai/spider
+  eval_split: validation

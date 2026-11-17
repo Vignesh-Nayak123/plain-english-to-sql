@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQLForge — Text-to-SQL</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">SQL<span class="accent">Forge</span></span>
+        <span class="brand-sub">fine-tuned text-to-SQL</span>
+      </div>
+    </div>
+
+    <div class="status" id="status" data-state="loading" title="Model status">
+      <span class="dot"></span>
+      <span class="status-label" id="statusLabel">connecting…</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- INPUT -->
+    <section class="panel input-panel">
+      <div class="panel-head">
+        <h2>Ask in plain English</h2>
+        <p class="muted">Pick a database, type a question, and watch the model write &amp; run the SQL.</p>
+      </div>
+
+      <label class="field-label" for="dbSelect">Database</label>
+      <div class="select-wrap">
+        <select id="dbSelect"></select>
+      </div>
+
+      <label class="field-label" for="question">Question</label>
+      <textarea id="question" rows="3" placeholder="e.g. How many singers do we have?"></textarea>
+
+      <div class="examples" id="examples"></div>
+
+      <details class="schema-box">
+        <summary>Schema being used <span class="chev">›</span></summary>
+        <pre id="schemaView" class="code mono">—</pre>
+      </details>
+
+      <button id="runBtn" class="run-btn">
+        <span class="btn-label">Generate SQL</span>
+        <span class="spinner" aria-hidden="true"></span>
+      </button>
+    </section>
+
+    <!-- OUTPUT -->
+    <section class="panel output-panel">
+      <div class="panel-head row">
+        <h2>Result</h2>
+        <div class="badges" id="badges"></div>
+      </div>
+
+      <div id="placeholder" class="placeholder">
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/>
+        </svg>
+        <p>Your generated query and live results will appear here.</p>
+      </div>
+
+      <div id="result" class="result hidden">
+        <div class="block">
+          <div class="block-head"><span>Generated SQL</span><button class="copy" id="copyBtn">copy</button></div>
+          <pre id="sqlOut" class="code sql mono"></pre>
+        </div>
+
+        <div id="traceBlock" class="block trace hidden">
+          <div class="block-head"><span>🛠️ Self-correction trace</span></div>
+          <div id="traceList"></div>
+        </div>
+
+        <div id="resultsBlock" class="block hidden">
+          <div class="block-head"><span id="resultsHead">Query results</span></div>
+          <div class="table-scroll"><table id="resultsTable"></table></div>
+        </div>
+
+        <div id="errorBlock" class="block error hidden">
+          <div class="block-head"><span>Execution error</span></div>
+          <pre id="errorOut" class="code mono"></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Qwen2.5-Coder-1.5B · QLoRA · Spider</span>
+    <span class="sep">•</span>
+    <span><b class="accent">65.6%</b> execution accuracy <span class="muted">(vs 57.4% base)</span></span>
+    <span class="sep">•</span>
+    <span class="muted">runs SQL against real SQLite DBs</span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

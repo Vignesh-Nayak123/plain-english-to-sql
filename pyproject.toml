@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sqlforge"
+version = "0.1.0"
+description = "Fine-tuned text-to-SQL: turn plain-English questions into correct SQL, measured with real execution accuracy on Spider."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Abdullah Kousa", email = "akousa360@gmail.com" }]
+keywords = ["text-to-sql", "nl2sql", "llm", "qlora", "fine-tuning", "spider", "sql", "qwen"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Database",
+]
+dependencies = [
+    "torch>=2.0",
+    "transformers>=4.45.0",
+    "peft>=0.13.0",
+    "accelerate>=1.0.0",
+    "huggingface_hub>=0.25.0",
+]
+
+[project.optional-dependencies]
+serve = ["fastapi>=0.111.0", "uvicorn[standard]>=0.30.0"]
+train = ["trl>=0.11.0", "datasets>=3.0.0", "bitsandbytes>=0.44.0", "wandb>=0.18.0", "pyyaml>=6.0"]
+
+[project.urls]
+Homepage = "https://github.com/abdullahkousa2/sqlforge"
+Repository = "https://github.com/abdullahkousa2/sqlforge"
+Demo = "https://huggingface.co/spaces/Abdullahkousa2/sqlforge"
+"Experiment tracking" = "https://wandb.ai/akousa360-arab-international-university-/sqlforge-text2sql"
+
+[project.scripts]
+sqlforge = "sqlforge.cli:main"
+
+[tool.setuptools]
+packages = ["sqlforge"]

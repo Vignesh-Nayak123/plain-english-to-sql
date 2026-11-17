@@ -1,0 +1,18 @@
+# keep the Space image small — only ship what the server needs
+.git/
+.claude/
+__pycache__/
+**/__pycache__/
+.ipynb_checkpoints/
+*.ipynb
+
+# large / dev-only artifacts
+models/
+outputs/
+data/
+wandb/
+
+# training & data-prep code (not needed to serve)
+scripts/
+configs/
+requirements.txt

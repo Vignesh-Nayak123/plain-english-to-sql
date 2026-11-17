@@ -1,0 +1,8 @@
+# Lean serving deps for the HF Space (CPU). torch is installed separately in the
+# Dockerfile (CPU wheel). No bitsandbytes/trl/datasets/wandb — those are train-only.
+transformers>=4.45.0
+peft>=0.13.0
+accelerate>=1.0.0
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+huggingface_hub>=0.25.0
